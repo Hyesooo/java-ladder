@@ -19,10 +19,7 @@ public class Ladder {
     public List<ResultDto> run() {
         List<ResultDto> resultDtoList = players.run(this.lines);
         return resultDtoList.stream()
-                .map(resultDto -> {
-                    resultDto.setPrize(prizes.get(resultDto.resultIdx));
-                    return resultDto;
-                })
+                .peek(resultDto -> resultDto.setPrize(prizes.get(resultDto.resultIdx)))
                 .collect(Collectors.toList());
     }
 

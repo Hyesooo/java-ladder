@@ -1,7 +1,9 @@
 package nextstep.ladder.domain;
 
+import nextstep.ladder.ResultDto;
+
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class Players {
@@ -22,21 +24,11 @@ public class Players {
         return players.stream().map(Player::toStringName).collect(Collectors.toList());
     }
 
-    public String gameResult(Player player, List<String> results) {
-        Optional<Player> resultPlayer = this.players.stream().filter(p -> p.equals(player)).findFirst();
-        if(resultPlayer.isPresent()){
-            return resultPlayer.get().toStringResult(results);
-        }
-        throw new IllegalArgumentException("없는 참가자입니다.");
-    }
-
-    public String gameResults(List<String> results) {
-        return this.players.stream().map(p -> p.toStringName() + " : " + p.toStringResult(results)).collect(Collectors.joining("\n"));
-    }
-
-    public void run(List<Line> lines) {
+    public List<ResultDto> run(List<Line> lines) {
+        List<ResultDto> resultDtos = new ArrayList<>();
         for (int i = 0; i < players.size(); i++) {
-            players.get(i).moveLine(i, lines);
+            resultDtos.add(players.get(i).moveLine(i, lines));
         }
+        return resultDtos;
     }
 }

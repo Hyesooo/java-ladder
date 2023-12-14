@@ -14,8 +14,7 @@ public class LadderMain {
 
         Ladder ladder = LadderFactory.createLadder(inputView.inputPlayer(), inputView.inputLadderHeight(), inputView.inputResult());
         ResultView.printLadder(ladder);
-        ladder.run();
-        ResultView.printResultPerPlayer(ladder, inputView.inputPlayerForResult());
+        ResultView.printResultPerPlayer(ladder.run(), inputView.inputPlayerForResult());
 
     }
 

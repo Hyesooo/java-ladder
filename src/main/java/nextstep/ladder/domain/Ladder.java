@@ -1,28 +1,29 @@
 package nextstep.ladder.domain;
 
+import nextstep.ladder.ResultDto;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class Ladder {
     private final Players players;
     private final List<Line> lines;
-    private final List<String> results;
+    private final List<String> prizes;
 
-    public Ladder(Players players, List<Line> lines, List<String> results) {
+    public Ladder(Players players, List<Line> lines, List<String> prizes) {
         this.players = players;
         this.lines = lines;
-        this.results = results;
+        this.prizes = prizes;
     }
 
-    public void run() {
-        players.run(this.lines);
-    }
-
-    public String getGameResultPerPlayer(String name) {
-        if("all".equals(name)) {
-            return this.players.gameResults(results);
-        }
-        return this.players.gameResult(new Player(name), results);
+    public List<ResultDto> run() {
+        List<ResultDto> resultDtoList = players.run(this.lines);
+        return resultDtoList.stream()
+                .map(resultDto -> {
+                    resultDto.setPrize(prizes.get(resultDto.resultIdx));
+                    return resultDto;
+                })
+                .collect(Collectors.toList());
     }
 
     public List<Line> getLines() {
@@ -43,7 +44,7 @@ public class Ladder {
             result.append(line.toString());
         }
 
-        result.append(this.results
+        result.append(this.prizes
                 .stream()
                 .map(p -> String.format("%-6s", p))
                 .collect(Collectors.joining("")));

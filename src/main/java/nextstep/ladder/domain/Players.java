@@ -24,7 +24,7 @@ public class Players {
         return players.stream().map(Player::toStringName).collect(Collectors.toList());
     }
 
-    public List<ResultDto> run(List<Line> lines) {
+    public List<ResultDto> run(Lines lines) {
         List<ResultDto> resultDtos = new ArrayList<>();
         for (int i = 0; i < players.size(); i++) {
             resultDtos.add(players.get(i).moveLine(i, lines));

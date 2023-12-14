@@ -58,7 +58,7 @@ public class Line {
             }
             result.append("     ");
         }
-        result.append("|\n");
+        result.append("|");
 
         return result.toString();
     }

@@ -2,8 +2,6 @@ package nextstep.ladder.domain;
 
 import nextstep.ladder.ResultDto;
 
-import java.util.List;
-
 public class Player {
     public static int MAX_PLAYER_NAME_LENGTH = 5;
     private final String name;
@@ -19,12 +17,8 @@ public class Player {
         return name;
     }
 
-    public ResultDto moveLine(int startIndex, List<Line> lines) {
-        int index = startIndex;
-        for (Line line : lines) {
-            index = line.proceedLine(index);
-        }
-        return new ResultDto(this.name, index);
+    public ResultDto moveLine(int startIndex, Lines lines) {
+        return new ResultDto(this.name, lines.proceedLines(startIndex));
     }
 
     @Override

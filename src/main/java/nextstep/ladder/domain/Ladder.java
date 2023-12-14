@@ -7,10 +7,10 @@ import java.util.stream.Collectors;
 
 public class Ladder {
     private final Players players;
-    private final List<Line> lines;
+    private final Lines lines;
     private final List<String> prizes;
 
-    public Ladder(Players players, List<Line> lines, List<String> prizes) {
+    public Ladder(Players players, Lines lines, List<String> prizes) {
         this.players = players;
         this.lines = lines;
         this.prizes = prizes;
@@ -23,7 +23,7 @@ public class Ladder {
                 .collect(Collectors.toList());
     }
 
-    public List<Line> getLines() {
+    public Lines getLines() {
         return lines;
     }
 
@@ -37,9 +37,9 @@ public class Ladder {
 
         result.append("\n");
 
-        for (Line line : this.lines) {
-            result.append(line.toString());
-        }
+        result.append(this.lines.toString());
+
+        result.append("\n");
 
         result.append(this.prizes
                 .stream()
